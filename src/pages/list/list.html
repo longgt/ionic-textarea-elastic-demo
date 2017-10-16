@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="item.icon" item-start></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-end>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="light">
+        <form [formGroup]="commentInputForm" (ngSubmit)="registerComment()" id="iCommentForm">
+            <ion-textarea fz-elastic rows="1" placeholder="ここにコメントを入力" formControlName="commentInputContent">
+            </ion-textarea>
+        </form>
+        <ion-buttons right>
+            <button ion-button small clear icon-only *ngIf="commentInputForm.controls.commentInputContent.valid && commentInputForm.controls.commentInputContent.dirty" (click)="resetCommentInput()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>      
+    </ion-toolbar>
+</ion-footer>
